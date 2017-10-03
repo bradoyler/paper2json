@@ -75,7 +75,7 @@ module.exports = function (docId, accessToken) {
     // Remove smart quotes from inside tags
     const cleanText = decodedText.replace(/<[^<>]*>/g, (match) => {
       return match.replace(/”|“/g, '"').replace(/‘|’/g, "'")
-    })
+    }).replace(/:Â/g, ':') // remove empty symbols: Â
 
     return archieml.load(cleanText)
   }
