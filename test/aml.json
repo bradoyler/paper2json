@@ -1,4 +1,76 @@
 {
-	"h2": "test headline",
-	"p": "test graf"
+	"kicker": {
+		"text": "",
+		"url": ""
+	},
+	"headline": "Brexit",
+	"summary": "",
+	"bylines": [
+		{
+			"type": "byline",
+			"value": {
+				"name": "",
+				"role": "By",
+				"type": "author",
+				"twitter": "",
+				"email": ""
+			}
+		},
+		{
+			"type": "byline",
+			"value": {
+				"name": "",
+				"role": "Editor",
+				"type": "",
+				"twitter": "",
+				"email": ""
+			}
+		},
+		{
+			"type": "byline",
+			"value": {
+				"name": "Brad Oyler & Ian Rose",
+				"role": "Design & Development",
+				"type": "",
+				"twitter": "",
+				"email": ""
+			}
+		}
+	],
+	"firstPublished": "10/16/2017",
+	"lastPublished": "10/16/2017",
+	"socialImage": "",
+	"mainArtImage": {
+		"url": "",
+		"alt": "",
+		"caption": ""
+	},
+	"body": [
+		{
+			"type": "p",
+			"value": "FERMANAGH, Northern Ireland â John Sheridan stood ankle deep in the lush grass of his farm tracing the border between the U.K. and the Republic of Ireland with his finger."
+		},
+		{
+			"type": "p",
+			"value": "\"I'm being shoved back into a corner,\" he said, following the line in a 270-degree arc."
+		},
+		{
+			"type": "image",
+			"value": {
+				"url": "hello world"
+			}
+		},
+		{
+			"type": "p",
+			"value": "\"That boy there,\" he said, waving in the direction of his 22-year-old son, Chris. \"He doesnât remember what it was like when there was a border.\""
+		},
+		{
+			"type": "p",
+			"value": "The soldiers, the searches, the checkpoints needing to be traversed to enter local towns, the feeling you're living in a militarized zone. \"It was soul destroying,\" Sheridan recalled."
+		},
+		{
+			"type": "p",
+			"value": "Like many living in border communities in Northern Ireland -- which is part of the U.K. â and the <a href=\"http://www.nbcnews.com\">neighbouring</a> Irish Republic â an independent country -- Sheridan is adamant that Britainâs looming exit from the European Union cannot bring the reinstatement of a physical boundary. That could range from manned customs posts to security cameras. Some fear it would rekindle tensions and even spill over into violence."
+		}
+	]
 }

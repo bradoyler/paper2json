@@ -1,7 +1,16 @@
+const fs = require('fs')
+const assert = require('assert')
 const paperToJSON = require('./../index')
 
 const accessToken = process.env.ACCESS_TOKEN
 const docId = 'S7sSIlM2E0g6p3OXhhts4'
 
-paperToJSON(docId, accessToken)
-.then((out) => console.log('Yay!', out))
+if (accessToken) {
+  paperToJSON(docId, accessToken)
+  .then((aml) => fs.writeFileSync('test/aml.json', JSON.stringify(aml, null, '\t')))
+} else {
+  const htmlFile = fs.readFileSync('test/example.html', 'utf-8')
+  const amlFile = fs.readFileSync('test/aml.json', 'utf-8')
+  const output = JSON.stringify(paperToJSON.parseHTML({ fileBinary: htmlFile }), null, '\t')
+  assert.deepEqual(JSON.parse(amlFile), JSON.parse(output))
+}
