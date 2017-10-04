@@ -1,12 +1,17 @@
 {
   "name": "paper2json",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Converts a Dropbox 'Paper' document to json (via ArchieML)",
   "main": "index.js",
   "scripts": {
     "test": "node test"
   },
-  "keywords": ["ArchieML", "json", "Paper", "Dropbox"],
+  "keywords": [
+    "ArchieML",
+    "json",
+    "Paper",
+    "Dropbox"
+  ],
   "author": "Brad Oyler",
   "license": "MIT",
   "dependencies": {
