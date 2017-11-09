@@ -82,7 +82,6 @@ function getHTML (docId, accessToken) {
 
 module.exports = function (docId, accessToken) {
   return getHTML(docId, accessToken)
-  .then(debug)
   .then(parseHTML)
   .catch(console.error)
 }
