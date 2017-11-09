@@ -25,5 +25,5 @@ Get a damn access token  [by reading this...](https://blogs.dropbox.com/develope
 
 ## Testing
 ```sh
-ACCESS_TOKEN=xxyyzz npm test
+$ ACCESS_TOKEN=xxyyzz npm test
 ```
