@@ -6,7 +6,7 @@ const accessToken = process.env.ACCESS_TOKEN
 const docId = 'S7sSIlM2E0g6p3OXhhts4'
 
 // for testing purposes
-function debug (doc) {
+function writeTestFile (doc) {
   console.log('Wrote file test/test.html:', doc)
   fs.writeFileSync('test/test.html', doc.fileBinary.toString())
   return doc
@@ -21,7 +21,6 @@ if (!accessToken) {
 }
 
 paperToJSON.getDoc(docId, accessToken)
-.then(debug)
+.then(writeTestFile)
 .then(html => paperToJSON.parseHTML(html))
-.then(debug)
 .then((aml) => fs.writeFileSync('test/aml.json', JSON.stringify(aml, null, '\t')))
