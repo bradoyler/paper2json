@@ -7,5 +7,9 @@ const dbx = new Dropbox({ accessToken })
 dbx.paperDocsDownload({ doc_id: docId, export_format: 'html' })
 .then((doc) => {
   console.log('doc:', doc)
-  return doc
+  if (doc.fileBinary.indexOf('â') > -1) {
+    console.log('!!! response contains â character');
+  } else {
+    console.log('all good!');
+  }
 })
