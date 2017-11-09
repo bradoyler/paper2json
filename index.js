@@ -5,7 +5,10 @@ const url = require('url')
 const Dropbox = require('dropbox')
 
 function parseHTML (doc) {
-  const dom = htmlparser.parseDOM(doc.fileBinary)
+  // remove corrupt html
+  const docHTML = doc.fileBinary
+  .replace(/<\/span><span> <\/span><span>â..<\/span><span> /g, ' - ')
+  const dom = htmlparser.parseDOM(docHTML)
 
   const tagHandlers = {
     _base: (tag) => {
@@ -30,12 +33,6 @@ function parseHTML (doc) {
     a: (aTag) => {
       let { href } = aTag.attribs
       if (href === undefined) return ''
-      // extract real URLs from Google's tracking
-      // from: http://www.google.com/url?q=http%3A%2F%2Fwww.nytimes.com...
-      // to: http://www.nytimes.com...
-      if (aTag.attribs.href && url.parse(aTag.attribs.href, true).query && url.parse(aTag.attribs.href, true).query.q) {
-        href = url.parse(aTag.attribs.href, true).query.q
-      }
 
       let str = '<a href="' + href + '">'
       str += tagHandlers._base(aTag)
@@ -70,27 +67,25 @@ function parseHTML (doc) {
   const decodedText = entities.decode(parsedText)
 
   // Remove smart quotes from inside tags
-  const cleanText = decodedText.replace(/<[^<>]*>/g, (match) => {
-    return match.replace(/”|“/g, '"').replace(/‘|’/g, "'")
+  const cleanText = decodedText
+  .replace(/<[^<>]*>/g, (match) => {
+    return match.replace(/â/g, '\"')
   }).replace(/:Â/g, ':') // remove empty symbols: Â
 
   return archieml.load(cleanText)
 }
 
-module.exports = function (docId, accessToken) {
+function getHTML (docId, accessToken) {
   const dbx = new Dropbox({ accessToken })
   return dbx.paperDocsDownload({ doc_id: docId, export_format: 'html' })
+}
+
+module.exports = function (docId, accessToken) {
+  return getHTML(docId, accessToken)
   .then(debug)
   .then(parseHTML)
   .catch(console.error)
 }
 
-// for testing purposes
-function debug (doc) {
-  if (process.env.DEBUG === 'true') {
-    console.log(doc)
-  }
-  return doc
-}
-
 module.exports.parseHTML = parseHTML // for testing
+module.exports.getHTML = getHTML
