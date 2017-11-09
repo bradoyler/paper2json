@@ -1,6 +1,6 @@
 {
   "name": "paper2json",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Converts a Dropbox 'Paper' document to json (via ArchieML)",
   "main": "index.js",
   "scripts": {
