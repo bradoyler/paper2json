@@ -7,10 +7,8 @@ const docId = 'S7sSIlM2E0g6p3OXhhts4'
 
 // for testing purposes
 function debug (doc) {
-  if (process.env.DEBUG === 'true') {
-    console.log('DEBUG:', doc)
-    fs.writeFileSync('test/test.html', doc.fileBinary.toString())
-  }
+  console.log('Wrote file test/test.html:', doc)
+  fs.writeFileSync('test/test.html', doc.fileBinary.toString())
   return doc
 }
 

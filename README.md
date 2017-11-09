@@ -21,3 +21,9 @@ paper2json(docId, accessToken)
 
 ---
 Get a damn access token  [by reading this...](https://blogs.dropbox.com/developers/2014/05/generate-an-access-token-for-your-own-account/)
+
+
+## Testing
+```sh
+ACCESS_TOKEN=xxyyzz npm test
+```
