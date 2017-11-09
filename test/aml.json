@@ -78,11 +78,15 @@
 		},
 		{
 			"type": "p",
-			"value": "<span class=\"first-line\">test </span> test test2 - more for the test."
+			"value": "<span class=\"first-line\">test </span> test TEST2 - more for the test."
 		},
 		{
 			"type": "p",
-			"value": "last graf - THE ENDD."
+			"value": "another graf - TEST3."
+		},
+		{
+			"type": "p",
+			"value": "But the"
 		}
 	]
 }

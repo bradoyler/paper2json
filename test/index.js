@@ -9,6 +9,7 @@ const docId = 'S7sSIlM2E0g6p3OXhhts4'
 function debug (doc) {
   if (process.env.DEBUG === 'true') {
     console.log('DEBUG:', doc)
+    fs.writeFileSync('test/test.html', doc.fileBinary.toString())
   }
   return doc
 }
@@ -21,7 +22,7 @@ if (!accessToken) {
   return
 }
 
-paperToJSON.getHTML(docId, accessToken)
+paperToJSON.getDoc(docId, accessToken)
 .then(debug)
 .then(html => paperToJSON.parseHTML(html))
 .then(debug)

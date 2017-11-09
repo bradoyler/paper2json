@@ -75,16 +75,16 @@ function parseHTML (doc) {
   return archieml.load(cleanText)
 }
 
-function getHTML (docId, accessToken) {
+function getDoc (docId, accessToken, format = 'html') {
   const dbx = new Dropbox({ accessToken })
-  return dbx.paperDocsDownload({ doc_id: docId, export_format: 'html' })
+  return dbx.paperDocsDownload({ doc_id: docId, export_format: format })
 }
 
 module.exports = function (docId, accessToken) {
-  return getHTML(docId, accessToken)
+  return getDoc(docId, accessToken)
   .then(parseHTML)
   .catch(console.error)
 }
 
 module.exports.parseHTML = parseHTML // for testing
-module.exports.getHTML = getHTML
+module.exports.getDoc = getDoc
