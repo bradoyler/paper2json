@@ -1,24 +1,26 @@
 const archieml = require('archieml')
 const htmlparser = require('htmlparser2')
 const { AllHtmlEntities } = require('html-entities')
-const url = require('url')
 const Dropbox = require('dropbox')
 
 function parseHTML (doc) {
-  // remove corrupt html
-  const docHTML = doc.fileBinary
-  .replace(/<\/span><span> <\/span><span>â..<\/span><span> /g, ' - ')
+  // encode fileBinary
+  const docHTML = Buffer.from(doc.fileBinary, 'binary').toString('utf8')
+  .replace(/span>\s<span/g, 'span><span> </span><span') // paper hack
+
   const dom = htmlparser.parseDOM(docHTML)
 
   const tagHandlers = {
     _base: (tag) => {
       let str = ''
-      tag.children.forEach(function (child) {
-        const transform = tagHandlers[child.name || child.type]
-        if (transform) {
-          str += transform(child)
-        }
-      })
+      if (Array.isArray(tag.children)) {
+        tag.children.forEach(function (child) {
+          const transform = tagHandlers[child.name || child.type]
+          if (transform) {
+            str += transform(child)
+          }
+        })
+      }
       return str
     },
     text: (textTag) => {
@@ -54,9 +56,14 @@ function parseHTML (doc) {
     tagHandlers[tag] = tagHandlers.p
   })
 
-  const tagArray = dom.map(function (nodes) {
+  const tagArray = dom.map(nodes => {
     if (Array.isArray(nodes.children) && Array.isArray(nodes.children[0].children)) {
-      return tagHandlers._base(nodes.children[0])
+      let strTag = ''
+      for (var i = 0; i < nodes.children.length; i++) {
+        const tag = tagHandlers._base(nodes.children[i])
+        strTag += tag
+      }
+      return strTag
     }
   })
 
@@ -65,13 +72,9 @@ function parseHTML (doc) {
   // Convert html entities into the characters as they exist in the paper doc
   const entities = new AllHtmlEntities()
   const decodedText = entities.decode(parsedText)
-
-  // Remove smart quotes from inside tags
+  // replace chars - ”
   const cleanText = decodedText
-  .replace(/<[^<>]*>/g, (match) => {
-    return match.replace(/â/g, '\"')
-  }).replace(/:Â/g, ':') // remove empty symbols: Â
-
+  .replace(/“/g, '"').replace(/”/g, '"').replace(/-/g, '-')
   return archieml.load(cleanText)
 }
 

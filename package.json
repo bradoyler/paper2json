@@ -25,6 +25,6 @@
     "paper2json": "./bin/paper2json.js"
   },
   "devDependencies": {
-    "standard": "^10.0.3"
+    "eslint-config-standard": "^10.2.1"
   }
 }

@@ -7,8 +7,9 @@ const docId = 'S7sSIlM2E0g6p3OXhhts4'
 
 // for testing purposes
 function writeTestFile (doc) {
-  console.log('Wrote file test/test.html:', doc)
-  fs.writeFileSync('test/test.html', doc.fileBinary.toString())
+  const html = Buffer.from(doc.fileBinary, 'binary').toString()
+  console.log(html, 'Wrote file test/test.html:')
+  fs.writeFileSync('test/test.html', html)
   return doc
 }
 
@@ -17,10 +18,9 @@ if (!accessToken) {
   const amlFile = fs.readFileSync('test/aml.json', 'utf-8')
   const output = JSON.stringify(paperToJSON.parseHTML({ fileBinary: htmlFile }), null, '\t')
   assert.deepEqual(JSON.parse(amlFile), JSON.parse(output))
-  return
+} else {
+  paperToJSON.getDoc(docId, accessToken)
+  .then(writeTestFile)
+  .then(html => paperToJSON.parseHTML(html))
+  .then((aml) => fs.writeFileSync('test/aml.json', JSON.stringify(aml, null, '\t')))
 }
-
-paperToJSON.getDoc(docId, accessToken)
-.then(writeTestFile)
-.then(html => paperToJSON.parseHTML(html))
-.then((aml) => fs.writeFileSync('test/aml.json', JSON.stringify(aml, null, '\t')))

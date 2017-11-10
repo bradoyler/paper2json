@@ -6,11 +6,10 @@ const dbx = new Dropbox({ accessToken })
 
 dbx.paperDocsDownload({ doc_id: docId, export_format: 'html' })
 .then((doc) => {
-  console.log('doc:', doc)
   const html = Buffer.from(doc.fileBinary, 'binary').toString()
   if (html.indexOf('â') > -1) {
-    console.log('!!! response contains â character');
+    console.log('!!! response contains â character')
   } else {
-    console.log(typeof html, 'all good!');
+    console.log(html, 'all good!')
   }
 })
