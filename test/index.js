@@ -14,10 +14,16 @@ function writeTestFile (doc) {
 }
 
 if (!accessToken) {
-  const htmlFile = fs.readFileSync('test/example.html', 'utf-8')
-  const amlFile = fs.readFileSync('test/aml.json', 'utf-8')
+  const htmlFile = fs.readFileSync('test/example.txt')
+  const amlFile = fs.readFileSync('test/aml.json')
   const output = JSON.stringify(paperToJSON.parseHTML({ fileBinary: htmlFile }), null, '\t')
-  assert.deepEqual(JSON.parse(amlFile), JSON.parse(output))
+  try {
+    assert.deepEqual(JSON.parse(amlFile), JSON.parse(output))
+  } catch (ex) {
+    console.log(JSON.parse(amlFile), '<<< expected >>>')
+    console.log(JSON.parse(output), '<<< actual >>>')
+    throw ex
+  }
 } else {
   paperToJSON.getDoc(docId, accessToken)
     .then(writeTestFile)

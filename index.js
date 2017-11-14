@@ -33,6 +33,9 @@ function parseHTML (doc) {
     span: (spanTag) => {
       return tagHandlers._base(spanTag)
     },
+    b: (tag) => {
+      return `<strong>${tagHandlers._base(tag)}</strong>`
+    },
     p: (pTag) => {
       return tagHandlers._base(pTag) + '\n'
     },
