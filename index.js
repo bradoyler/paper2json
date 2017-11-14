@@ -6,7 +6,7 @@ const Dropbox = require('dropbox')
 function parseHTML (doc) {
   // encode fileBinary
   const docHTML = Buffer.from(doc.fileBinary, 'binary').toString('utf8')
-  .replace(/span>\s<span/g, 'span><span> </span><span') // paper hack
+    .replace(/span>\s<span/g, 'span><span> </span><span') // paper hack
 
   const dom = htmlparser.parseDOM(docHTML)
 
@@ -24,6 +24,10 @@ function parseHTML (doc) {
       return str
     },
     text: (textTag) => {
+      if (textTag.data) {
+        // replace token logic
+        textTag.data = textTag.data.replace('{://}', '://')
+      }
       return textTag.data
     },
     span: (spanTag) => {
@@ -68,13 +72,12 @@ function parseHTML (doc) {
   })
 
   const parsedText = tagArray.join('\n')
-
   // Convert html entities into the characters as they exist in the paper doc
   const entities = new AllHtmlEntities()
   const decodedText = entities.decode(parsedText)
   // replace chars - ”
   const cleanText = decodedText
-  .replace(/“/g, '"').replace(/”/g, '"').replace(/-/g, '-')
+    .replace(/“/g, '"').replace(/”/g, '"').replace(/-/g, '-')
   return archieml.load(cleanText)
 }
 
@@ -85,8 +88,8 @@ function getDoc (docId, accessToken, format = 'html') {
 
 module.exports = function (docId, accessToken) {
   return getDoc(docId, accessToken)
-  .then(parseHTML)
-  .catch(console.error)
+    .then(parseHTML)
+    .catch(console.error)
 }
 
 module.exports.parseHTML = parseHTML // for testing

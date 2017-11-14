@@ -20,7 +20,7 @@ if (!accessToken) {
   assert.deepEqual(JSON.parse(amlFile), JSON.parse(output))
 } else {
   paperToJSON.getDoc(docId, accessToken)
-  .then(writeTestFile)
-  .then(html => paperToJSON.parseHTML(html))
-  .then((aml) => fs.writeFileSync('test/aml.json', JSON.stringify(aml, null, '\t')))
+    .then(writeTestFile)
+    .then(html => paperToJSON.parseHTML(html))
+    .then((aml) => fs.writeFileSync('test/aml.json', JSON.stringify(aml, null, '\t')))
 }
