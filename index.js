@@ -25,32 +25,21 @@ function parseHTML (doc) {
     },
     text: (textTag) => {
       if (textTag.data) {
-        // replace token logic
+        // replace token logic (for auto-links)
         textTag.data = textTag.data.replace('{://}', '://')
       }
       return textTag.data
     },
-    span: (spanTag) => {
-      return tagHandlers._base(spanTag)
-    },
-    b: (tag) => {
-      return `<strong>${tagHandlers._base(tag)}</strong>`
-    },
-    p: (pTag) => {
-      return tagHandlers._base(pTag) + '\n'
-    },
+    span: (spanTag) => tagHandlers._base(spanTag),
+    b: (tag) => `<strong>${tagHandlers._base(tag)}</strong>`,
+    s: (tag) => `<s>${tagHandlers._base(tag)}</s>`,
+    p: (pTag) => `${tagHandlers._base(pTag)}\n`,
     a: (aTag) => {
-      let { href } = aTag.attribs
+      const { href } = aTag.attribs
       if (href === undefined) return ''
-
-      let str = '<a href="' + href + '">'
-      str += tagHandlers._base(aTag)
-      str += '</a>'
-      return str
+      return `<a href="${href}">${tagHandlers._base(aTag)}</a>`
     },
-    li: (tag) => {
-      return '* ' + tagHandlers._base(tag) + '\n'
-    }
+    li: (tag) => `* ${tagHandlers._base(tag)}\n`
   }
 
   const listTags = ['ul', 'ol']
