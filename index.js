@@ -80,8 +80,7 @@ function getDoc (docId, accessToken, format = 'html') {
 
 module.exports = function (docId, accessToken) {
   return getDoc(docId, accessToken)
-    .then(parseHTML)
-    .catch(console.error)
+  .then(parseHTML)
 }
 
 module.exports.parseHTML = parseHTML // for testing
