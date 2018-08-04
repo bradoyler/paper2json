@@ -1,6 +1,6 @@
 {
   "name": "paper2json",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Converts a Dropbox 'Paper' document to json (via ArchieML)",
   "main": "index.js",
   "scripts": {
@@ -17,8 +17,8 @@
   "license": "MIT",
   "dependencies": {
     "archieml": "^0.4.2",
-    "commander": "^2.11.0",
-    "dropbox": "^2.5.10",
+    "commander": "^2.17.0",
+    "dropbox": "^2.5.13",
     "html-entities": "^1.2.1",
     "htmlparser2": "^3.9.2"
   },
@@ -26,11 +26,11 @@
     "paper2json": "./bin/paper2json.js"
   },
   "devDependencies": {
-    "eslint": "4.11.0",
-    "eslint-config-standard": "10.2.1",
-    "eslint-plugin-import": "2.8.0",
-    "eslint-plugin-node": "5.2.1",
-    "eslint-plugin-promise": "3.6.0",
-    "eslint-plugin-standard": "3.0.1"
+    "eslint": "^4.19.1",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.13.0",
+    "eslint-plugin-node": "^5.2.1",
+    "eslint-plugin-promise": "^3.8.0",
+    "eslint-plugin-standard": "^3.1.0"
   }
 }

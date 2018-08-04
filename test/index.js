@@ -28,5 +28,6 @@ if (!accessToken) {
   paperToJSON.getDoc(docId, accessToken)
     .then(writeTestFile)
     .then(html => paperToJSON.parseHTML(html))
-    .then((aml) => fs.writeFileSync('test/aml.json', JSON.stringify(aml, null, '\t')))
+    .then(aml => fs.writeFileSync('test/aml2.json', JSON.stringify(aml, null, '\t')))
+    .catch(err => console.error(err))
 }
